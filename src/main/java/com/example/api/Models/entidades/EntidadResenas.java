@@ -5,30 +5,32 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "resenas", schema = "baseanimal", catalog = "")
+@Table(name = "resenas", schema = "baseanimal")
 public class EntidadResenas {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
-    @Basic
-    @Column(name = "id_usuario", nullable = true)
+
+    @Column(name = "id_usuario")
     private Integer idUsuario;
-    @Basic
-    @Column(name = "id_cuidador", nullable = true)
+
+    @Column(name = "id_cuidador")
     private Integer idCuidador;
-    @Basic
-    @Column(name = "puntuacion", nullable = true)
+
+    @Column(name = "puntuacion")
     private Integer puntuacion;
-    @Basic
-    @Column(name = "comentario", nullable = true, length = -1)
+
+    @Column(name = "comentario", length = 255)
     private String comentario;
+
     @ManyToOne
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
-    private EntidadUsuarios usuariosByIdUsuario;
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id", insertable = false, updatable = false)
+    private EntidadUsuarios usuario;
+
     @ManyToOne
-    @JoinColumn(name = "id_cuidador", referencedColumnName = "id")
-    private EntidadUsuarios usuariosByIdCuidador;
+    @JoinColumn(name = "id_cuidador", referencedColumnName = "id", insertable = false, updatable = false)
+    private EntidadUsuarios cuidador;
 
     public int getId() {
         return id;
@@ -82,20 +84,20 @@ public class EntidadResenas {
     public int hashCode() {
         return Objects.hash(id, idUsuario, idCuidador, puntuacion, comentario);
     }
-
-    public EntidadUsuarios getUsuariosByIdUsuario() {
-        return usuariosByIdUsuario;
+    public EntidadUsuarios getUsuario() {
+        return usuario;
     }
 
-    public void setUsuariosByIdUsuario(EntidadUsuarios usuariosByIdUsuario) {
-        this.usuariosByIdUsuario = usuariosByIdUsuario;
+    public void setUsuario(EntidadUsuarios usuario) {
+        this.usuario = usuario;
     }
 
-    public EntidadUsuarios getUsuariosByIdCuidador() {
-        return usuariosByIdCuidador;
+    public EntidadUsuarios getCuidador() {
+        return cuidador;
     }
 
-    public void setUsuariosByIdCuidador(EntidadUsuarios usuariosByIdCuidador) {
-        this.usuariosByIdCuidador = usuariosByIdCuidador;
+    public void setCuidador(EntidadUsuarios cuidador) {
+        this.cuidador = cuidador;
     }
+
 }

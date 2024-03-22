@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "mascotas", schema = "baseanimal", catalog = "")
+@Table(name = "mascotas", schema = "baseanimal")
 public class EntidadMascotas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -27,9 +27,8 @@ public class EntidadMascotas {
     @Basic
     @Column(name = "descripcion", nullable = true, length = -1)
     private String descripcion;
-    @Basic
-    @Column(name = "id_usuario", nullable = true)
-    private Integer idUsuario;
+    @Column(name = "id_usuario", insertable = false, updatable = false)
+    private int idUsuario;
     @ManyToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
     private EntidadUsuarios usuariosByIdUsuario;
@@ -82,11 +81,11 @@ public class EntidadMascotas {
         this.descripcion = descripcion;
     }
 
-    public Integer getIdUsuario() {
+    public int getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 
